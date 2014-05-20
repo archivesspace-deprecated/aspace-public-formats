@@ -1,0 +1,8 @@
+en:
+  plugins:
+    public_formats:
+      dc: DUBLIN CORE
+      ead: EAD
+      marcxml: MARCXML
+      mets: METS
+      mods: MODS
