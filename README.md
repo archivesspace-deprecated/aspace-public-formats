@@ -8,6 +8,8 @@ Resources
 
 - **EAD**
   - http://some.archivesspace.edu/repositories/2/resources/1/format/ead
+- **HTML**
+  - http://some.archivesspace.edu/repositories/2/resources/1/format/html
 - **MARCXML**
   - http://some.archivesspace.edu/repositories/2/resources/1/format/marcxml
 
@@ -44,6 +46,15 @@ And set (choosing the options you want to create public links for):
 AppConfig[:public_formats_resource_links] = ["ead", "marcxml"]
 AppConfig[:public_formats_digital_object_links] = ["dc", "mets", "mods"]
 ```
+
+HTML
+--------
+
+The HTML output works by first requesting the EAD, then performing an XSLT transform on the XML. There are a couple of additional requirements for the html output to work:
+
+- clone the ead xslt repository
+- set the path to the xslt repository
+- set the url for ead html css
 
 Compatibility
 -----------------

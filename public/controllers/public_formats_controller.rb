@@ -13,7 +13,16 @@ class PublicFormatsController < ApplicationController
     request  = Net::HTTP::Get.new "/plugins/public_formats/repository/#{repo_id}/#{type}/#{format}/#{id}.xml"
     response = http.request request 
     if response.code == "200"
-      render :text => response.body, :content_type => "text/xml"
+      content_type = format == "html" ? "html" : "xml"
+      content = response.body
+
+      if content_type == "html"
+        # convert content to html
+        html = "<h1>Placeholder</h1>"
+        content = html
+      end
+
+      render text: content, :content_type => "text/#{content_type}"
     else
       raise RecordNotFound.new
     end
@@ -21,7 +30,7 @@ class PublicFormatsController < ApplicationController
 
   def check_format(type, format)
     formats = {
-      resources: [ "ead", "marcxml" ],
+      resources: [ "ead", "html", "marcxml" ],
       digital_objects: ["dc", "mets", "mods"],
     }
     raise RecordNotFound.new unless formats[type.intern].include? format

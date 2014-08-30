@@ -12,9 +12,11 @@ class ArchivesSpaceService < Sinatra::Base
     handle params[:format], params[:id]
   end
 
+  # html requires the ead
   def format_tree
     {
       ead: [:stream_response, :generate_ead, true, false, false],
+      html: [:stream_response, :generate_ead, true, false, false],
       marcxml: [:xml_response, :generate_marc],
       dc: [:xml_response, :generate_dc],
       mets: [:xml_response, :generate_mets],

@@ -6,3 +6,5 @@ ArchivesSpacePublic::Application.config.paths['config/routes'].concat(my_routes)
 
 AppConfig[:public_formats_resource_links] = []
 AppConfig[:public_formats_digital_object_links] = []
+AppConfig[:xslt_path] = nil
+AppConfig[:ead_html_css_url] = nil
