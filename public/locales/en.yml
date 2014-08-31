@@ -3,6 +3,7 @@ en:
     public_formats:
       dc: DUBLIN CORE
       ead: EAD
+      html: HTML
       marcxml: MARCXML
       mets: METS
       mods: MODS
