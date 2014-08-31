@@ -17,9 +17,16 @@ class PublicFormatsController < ApplicationController
       content = response.body
 
       if content_type == "html"
-        # convert content to html
-        html = "<h1>Placeholder</h1>"
-        content = html
+        raise "XSLTPROC not found" unless File.file? AppConfig[:xsltproc_path]
+        raise "XSLT not found" unless File.file? AppConfig[:xslt_path]
+        ead  = Tempfile.new('public-formats-ead')
+        html = Tempfile.new('public-formats-html')
+        ead.write content
+
+        system("#{AppConfig[:xsltproc_path]} -o #{html.path} #{AppConfig[:xslt_path]} #{ead.path}")
+        content = html.read
+
+        [ead, html].each { |f| f.close; f.unlink }
       end
 
       render text: content, :content_type => "text/#{content_type}"
