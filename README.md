@@ -52,9 +52,9 @@ HTML
 
 The HTML output works by first requesting the EAD, then performing an XSLT transform on the XML. There are a couple of additional requirements for the html output to work:
 
-- clone the ead xslt repository
-- set the path to the xslt repository
-- set the url for ead html css
+- clone the ead xslt repository from `https://github.com/tingletech/ead_basic_xslt`
+- install xsltproc
+- set the path to xsltproc and the xslt repository in `public/plugin_init.rb`
 
 Compatibility
 -----------------
