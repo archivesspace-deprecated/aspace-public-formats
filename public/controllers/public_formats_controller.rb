@@ -10,10 +10,14 @@ class PublicFormatsController < ApplicationController
   def handle(repo_id, type, format, id)
     uri      = URI.parse AppConfig[:backend_url]
     http     = Net::HTTP.new uri.host, uri.port
-    request  = Net::HTTP::Get.new "/plugins/public_formats/repository/#{repo_id}/#{type}/#{format}/#{id}.xml"
+    
+    format, mime = format.split("_") 
+    mime ||= "xml" 
+
+    request  = Net::HTTP::Get.new "/plugins/public_formats/repository/#{repo_id}/#{type}/#{format}/#{id}.#{mime}"
     response = http.request request 
     if response.code == "200"
-      content_type = format == "html" ? "html" : "xml"
+      content_type = format == "html" ? format : mime 
       content = response.body
 
       if content_type == "html"
@@ -28,8 +32,11 @@ class PublicFormatsController < ApplicationController
 
         [ead, html].each { |f| f.close; f.unlink }
       end
-
-      render text: content, :content_type => "text/#{content_type}"
+      if content_type == "pdf"
+        send_data content, :filename => "#{id}_#{format}.pdf", :type => "application/pdf"   
+      else
+        render text: content, :content_type => "text/#{content_type}"
+      end
     else
       raise RecordNotFound.new
     end
@@ -37,7 +44,7 @@ class PublicFormatsController < ApplicationController
 
   def check_format(type, format)
     formats = {
-      resources: [ "ead", "html", "marcxml" ],
+      resources: [ "ead", "ead_pdf", "html", "marcxml" ],
       digital_objects: ["dc", "mets", "mods"],
     }
     raise RecordNotFound.new unless formats[type.intern].include? format
