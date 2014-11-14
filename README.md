@@ -12,6 +12,8 @@ Resources
   - http://some.archivesspace.edu/repositories/2/resources/1/format/html
 - **MARCXML**
   - http://some.archivesspace.edu/repositories/2/resources/1/format/marcxml
+- **EAD-PDF**
+  - http://some.archivesspace.edu/repositories/2/resources/1/format/ead_pdf
 
 ```
 curl "http://localhost:8081/repositories/2/resources/1/format/ead"
@@ -43,7 +45,7 @@ vi /path/to/archivesspace/plugins/aspace-public-formats/public/plugin_init.rb
 And set (choosing the options you want to create public links for):
 
 ```
-AppConfig[:public_formats_resource_links] = ["ead", "marcxml"]
+AppConfig[:public_formats_resource_links] = ["ead", "marcxml", "ead_pdf"]
 AppConfig[:public_formats_digital_object_links] = ["dc", "mets", "mods"]
 ```
 
