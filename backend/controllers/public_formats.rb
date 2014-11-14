@@ -42,7 +42,7 @@ class ArchivesSpaceService < Sinatra::Base
     format, mime = format_mime.split("_") 
     responder, generater, *args = format_tree[format.intern]
     
-    if mime.intern == :pdf
+    if mime and mime.intern == :pdf
       data_source = args.any? ? self.send( "generate_#{format}", id, *args) :  self.send("generate_#{format}", id)
       data = args.any? ? self.send( "generate_pdf_from_#{format}", data_source) :  self.send("generate_#{format}", id)
     else 
