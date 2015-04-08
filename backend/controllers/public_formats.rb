@@ -1,3 +1,37 @@
+
+module ExportHelper
+
+  def generate_pdf_from_ead( ead )
+    xml = ""
+    ead.each { |e| xml << e  }
+    ASFop.new(xml).to_pdf_stream
+  end 
+
+end
+
+class ASFop
+
+  def to_pdf_stream
+    begin 
+      fo = StringIO.new(to_fo).to_inputstream  
+
+      out = ASUtils.tempfile('fop.pdf') 
+      fop = FopFactory.newInstance.newFop(MimeConstants::MIME_PDF, out.to_outputstream)
+
+      transformer = TransformerFactory.newInstance.newTransformer()
+      res = SAXResult.new(fop.getDefaultHandler)
+
+      transformer.transform(StreamSource.new(fo), res)
+      out.rewind
+      out.read
+    ensure
+      out.close
+      out.unlink
+    end
+  end
+end
+
+
 class ArchivesSpaceService < Sinatra::Base
 
   Endpoint.get('/plugins/public_formats/repository/:repo_id/:type/:format/:id.xml')
