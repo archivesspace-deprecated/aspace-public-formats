@@ -61,6 +61,6 @@ The HTML output works by first requesting the EAD, then performing an XSLT trans
 Compatibility
 -----------------
 
-- ArchivesSpace v1.1.1
+- ArchivesSpace v1.2.0
 
 ---
