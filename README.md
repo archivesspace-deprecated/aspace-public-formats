@@ -1,36 +1,48 @@
 Public Formats
 =========
 
-This plugin exposes additional output formats for resource and digital object records in the public interface. It provides a convenient way to retrieve EAD, MARCXML, DC (etc.) representations of ArchivesSpace objects without requiring a staff account or authenticated / direct access to the backend. Optionally links can be added to the navigation sidebar. 
+This plugin exposes additional output formats for resource and digital object records in the public interface. It provides a convenient way to retrieve EAD, MARCXML, DC (etc.) representations of ArchivesSpace objects without requiring a staff account or authenticated / direct access to the backend. Optionally links can be added to the navigation sidebar.
 
 Resources
 -------------
 
-- **EAD**
-  - http://some.archivesspace.edu/repositories/2/resources/1/format/ead
-- **HTML**
-  - http://some.archivesspace.edu/repositories/2/resources/1/format/html
-- **MARCXML**
-  - http://some.archivesspace.edu/repositories/2/resources/1/format/marcxml
-- **EAD-PDF**
-  - http://some.archivesspace.edu/repositories/2/resources/1/format/ead_pdf
+Supported formats:
+
+- EAD
+- HTML
+- MARCXML
+- EAD PDF
+
+Example urls for access:
 
 ```
-curl "http://localhost:8081/repositories/2/resources/1/format/ead"
+http://some.archivesspace.edu/repositories/2/resources/1/format/ead
+http://some.archivesspace.edu/repositories/2/resources/1/format/html
+http://some.archivesspace.edu/repositories/2/resources/1/format/marcxml
+http://some.archivesspace.edu/repositories/2/resources/1/format/ead_pdf
+
+# example command to retrieve a record and save it to file:
+curl "http://localhost:8081/repositories/2/resources/1/format/ead" > ead.xml
 ```
 
 Digital Objects
 -------------------
 
-- **Dublin Core**
-  - http://some.archivesspace.edu/repositories/2/digital_objects/35/format/dc
-- **METS**
-  - http://some.archivesspace.edu/repositories/2/digital_objects/35/format/mets
-- **MODS**
-  - http://some.archivesspace.edu/repositories/2/digital_objects/35/format/mods
+Supported formats:
+
+- Dublin Core
+- METS
+- MODS
+
+Example urls for access:
 
 ```
-curl "http://localhost:8081/repositories/2/digital_objects/1/format/ead"
+http://some.archivesspace.edu/repositories/2/digital_objects/35/format/dc
+http://some.archivesspace.edu/repositories/2/digital_objects/35/format/mets
+http://some.archivesspace.edu/repositories/2/digital_objects/35/format/mods
+
+# example command to retrieve a record and save it to file:
+curl "http://localhost:8081/repositories/2/digital_objects/1/format/dc" > dc.xml
 ```
 
 Configuration
@@ -61,6 +73,10 @@ The HTML output works by first requesting the EAD, then performing an XSLT trans
 Compatibility
 -----------------
 
+Tested with:
+
+- ArchivesSpace v1.1.1
+- ArchivesSpace v1.1.2
 - ArchivesSpace v1.2.0
 
 ---
